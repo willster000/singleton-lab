@@ -29,9 +29,8 @@ public class TestBST {
 		System.out.println("Winnie: " + wordCounts.getCount("Winnie"));
 		System.out.println("Winnie-the-Pooh: " + wordCounts.getCount("Winnie-the-Pooh"));
 		System.out.println("WinniethePooh: " + wordCounts.getCount("WinniethePooh"));
-		System.out.println("asdklfj: " + wordCounts.getCount("asdklfj"));
-		System.out.println("ASDKLFJ: " + wordCounts.getCount("ASDKLFJ"));
-		System.out.println("asdk'lfj: " + wordCounts.getCount("asdk'lfj"));
+		System.out.println("Lenovo laptop: " + wordCounts.getCount("Lenovo laptop"));
+		System.out.println("Hurricane-tortilla: " + wordCounts.getCount("Hurricane-tortilla"));
 		
 		
 		wordCounts.inOrder((s,n)-> true); // print all words and counts
@@ -39,25 +38,24 @@ public class TestBST {
 		// Add: print nodes with the words longer than 5 letters
 		wordCounts.inOrder((s,n)-> s.length() > 5);
 		// Add another call to inOrder using "and", "or", or "negate"
+		BiPredicate<String, Integer> longPredicate = (s,n)-> {
+			return s.length() > 5;
+		};
 
 		BiPredicate<String, Integer> frequentPredicate = (s,n)-> {
 			return n >= 5;
 		};
 
-		BiPredicate<String, Integer> longPredicate = (s,n)-> {
-			return s.length() > 5;
-		};
-
 		BiPredicate<String,Integer> longAndFrequent = longPredicate.and(frequentPredicate);
-		System.out.println("These words are long and frequent.");
+		System.out.println("Four score and seven years ago...");
 		wordCounts.inOrder(longAndFrequent);
 
 		BiPredicate<String,Integer> longOrFrequent = longPredicate.or(frequentPredicate);
-		System.out.println("These words are long or frequent.");
+		System.out.println("Four score and seven years ago...");
 		wordCounts.inOrder(longOrFrequent);
 
 		BiPredicate<String,Integer> notLong = longPredicate.negate();
-		System.out.println("These words are not long.");
+		System.out.println("I want to go to the hut.");
 		wordCounts.inOrder(notLong);
 		
 		// Add a method "compute" to BSTCount. The method also performs an in-order traversal
@@ -73,14 +71,11 @@ public class TestBST {
 		// 2. Find the sum of the lengths of all words.
 		wordCounts.compute((s,n)-> s.length());
 		// 3. Find the longest word
-		// I'm not sure how we do this without making another version of compute.
-		// We don't have anything to store the length so far. The lambda
-		// has no information about what comes before or after. So did I 
-		// make a mistake with compute and if done differently I 
-
-
-		
-		
+		wordCounts.compute((s,n)-> {
+			if(s.length() > n)
+				return s.length();
+			else
+				return n;
+		});	
 	}
-
 }

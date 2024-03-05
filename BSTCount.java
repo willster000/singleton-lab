@@ -8,8 +8,7 @@ public class BSTCount {
 	 * Creates an empty tree that consists just of a single empty node
 	 * 
 	 */
-	public BSTCount() {
-		// Fill in the code according to the description 
+	public BSTCount() { 
 		this.root = EmptyBSTNode.UNIQUE_INSTANCE;
 	}
 	
@@ -22,7 +21,6 @@ public class BSTCount {
 	public void add(String word) {
 		// If the tree is still empty:
 		if (root == EmptyBSTNode.UNIQUE_INSTANCE) {
-			// Fill in the code according to the description
 			this.root = new NonEmptyBSTNode(word);
 		} else {
 			BSTNode current = root;
@@ -34,25 +32,23 @@ public class BSTCount {
 
 			// While the current word isn't equal to the word we're adding. 
 			// Once the current word is equal then the loop is over and we increment count.
-			while (!word.equals(current.getWord())){
-				String currentWord = current.getWord();
-
-				if (word.compareTo(currentWord) < 0) {
-					if(current.getLeft().equals(EmptyBSTNode.UNIQUE_INSTANCE)){
+			while (!word.equals(current.getWord())){ 
+				if (word.compareTo(current.getWord()) < 0) {
+					if (current.getLeft() == EmptyBSTNode.UNIQUE_INSTANCE) {
 						current.addWordLeft(word);
-						break;
+						return;
+					} else {
+						current = current.getLeft();
 					}
-					current = current.getLeft();
-
-				} else if (word.compareTo(currentWord) > 0){
-					if(current.getRight().equals(EmptyBSTNode.UNIQUE_INSTANCE)){
+				} else {
+					if (current.getRight() == EmptyBSTNode.UNIQUE_INSTANCE) {
 						current.addWordRight(word);
-						break;
+						return;
+					} else {
+						current = current.getRight();
 					}
-					current = current.getRight();
 				}
 			}
-			// Fill in the code according to the description
 			current.incrementCount();
 		}
 	}
@@ -96,32 +92,19 @@ public class BSTCount {
 		}	
 	}
 
-	// Add a method "compute" to BSTCount. The method also performs an in-order traversal
-		// recursively. 
-		// It takes a lambda function that takes two parameters (a string and an integer)
-		// and returns an int.
-		// The function implements the following interface:
-		// https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/function/ToIntBiFunction.html
-		
-		// After you implement the traversal function, use it to:
-		// 1. Find the sum of all counts of words. 
-		// 2. Find the sum of the lengths of all words.
-		// 3. Find the longest word
-	public void compute(ToIntBiFunction<String,Integer> selector) {
-		computeRec(root, selector);
-	}
-
 	public int computeRec(BSTNode node, ToIntBiFunction<String,Integer> selector){
 			int sum = 0;
 		
 		if(node != EmptyBSTNode.UNIQUE_INSTANCE){
 			computeRec(node.getLeft(), selector);
-
 				sum += selector.applyAsInt(node.getWord(), node.getCount());
-
 			computeRec(node.getRight(), selector);
 		}
 		return sum;
+	}
+
+	public void compute(ToIntBiFunction<String,Integer> selector) {
+		computeRec(root, selector);
 	}
 	
 }

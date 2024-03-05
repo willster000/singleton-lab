@@ -27,29 +27,26 @@ public enum EmptyBSTNode implements BSTNode {
 
 	@Override
 	public BSTNode getLeft() {
-		throw new UnsupportedOperationException("An empty node doesn't have a left");
+		throw new UnsupportedOperationException("if the node is empty, it has no left child");
 	}
 
 	@Override
 	public BSTNode getRight() {
-		throw new UnsupportedOperationException("An empty node doesn't have a right");
+		throw new UnsupportedOperationException("if the node is empty, it has no right child");
 	}
 
 	@Override
 	public void addWordLeft(String word) {
-		throw new UnsupportedOperationException("Can't addWordLeft on empty node");
+		throw new UnsupportedOperationException("if the node is empty, you can't add a left child");
 	}
 
 	@Override
 	public void addWordRight(String word) {
-		throw new UnsupportedOperationException("Can't addWordRight on empty node");
+		throw new UnsupportedOperationException("if the node is empty, you can't add a right child");
 	}
 
 	@Override
 	public void incrementCount() {
-		throw new UnsupportedOperationException("Unimplemented method 'incrementCount'");
 	}
-
-	// Add other missing methods 
 
 }
